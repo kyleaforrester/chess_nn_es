@@ -10,7 +10,6 @@ import copy
 import datetime
 import math
 
-
 class Individual:
 
     mutate_std_dev = 0.005
@@ -127,10 +126,10 @@ class Individual:
         last_index = len(self.biases) - 1
         act = np.array(l0a)
         for layer_idx in range(last_index):
-            act = Individual.leaky_relu((self.np_weights[layer_idx] @ act) + self.np_biases[layer_idx])
+            act = Individual.leaky_relu(np.matmul(self.np_weights[layer_idx], act) + self.np_biases[layer_idx])
             #fd_out.write('{}\n'.format(act))
 
-        act = Individual.sigmoid((self.np_weights[last_index] @ act) + self.np_biases[last_index])
+        act = Individual.sigmoid(np.matmul(self.np_weights[last_index], act) + self.np_biases[last_index])
         #fd_out.write('{}\n'.format(act))
 
         return act[0][0]
@@ -380,7 +379,7 @@ class Individual:
         del positions
 
         with mp.Pool() as pool:
-            evals = pool.map(Individual.evaluate, ind_list)
+            evals = pool.map(evaluate, ind_list)
             for i in range(len(ind_list)):
                 ind_list[i].evaluation = evals[i]
 
@@ -395,3 +394,7 @@ class Individual:
     def read(string):
         p_str = string.split('|')
         return Individual(eval(p_str[1]), eval(p_str[2]), eval(p_str[3]), float(p_str[0]))
+
+
+def evaluate(ind):
+    return Individual.evaluate(ind)
