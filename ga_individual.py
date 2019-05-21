@@ -12,15 +12,15 @@ import math
 
 class Individual:
 
-    mutate_std_dev = 0.005
+    mutate_std_dev = 0.0005
     mutate_rate = 1
     curr_positions = []
-    sample_size = 1000
+    sample_size = 20000
 
     def __init__(self, layers=None, weights=None, biases=None, evaluation = 0):
         self.evaluation = evaluation
         if layers is None:
-            self.layers = [837, 20, 1]
+            self.layers = [837, 20, 20, 1]
         else:
             self.layers = layers
 

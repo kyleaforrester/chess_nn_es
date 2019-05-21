@@ -7,7 +7,7 @@ import math
 
 class Population:
 
-    elite_percent = 0.01
+    elite_percent = 0
     pop_size = 10
 
     def __init__(self):
